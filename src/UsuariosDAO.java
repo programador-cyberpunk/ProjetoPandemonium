@@ -14,17 +14,16 @@ public class UsuariosDAO {
             usuarios.add(new Usuario(proximoId++, "user", "senha123"));
         }
 
-        // READ: Método para validar o login
+
         public Usuario validarLogin(String username, String password) {
             for (Usuario u : usuarios) {
                 if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
-                    return u; // Retorna o usuário se as credenciais estiverem corretas
+                    return u;
                 }
             }
-            return null; // Retorna nulo se o usuário não for encontrado ou a senha estiver errada
+            return null;
         }
 
-        // Aqui estariam os outros métodos do CRUD que você poderia implementar
         // Por exemplo:
         // public void adicionarUsuario(String username, String password) { ... }
         // public void deletarUsuario(int id) { ... }
