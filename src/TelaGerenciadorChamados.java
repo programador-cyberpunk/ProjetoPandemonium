@@ -1,13 +1,10 @@
 
-
-import br.com.gravador.dao.ChamadoDAO;
-import br.com.gravador.model.Chamado;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class TelaGerenciarChamados extends JFrame {
+public class TelaGerenciadorChamados extends JFrame {
 
     private ChamadoDAO chamadoDAO;
     private JTable tabelaChamados;
@@ -18,7 +15,7 @@ public class TelaGerenciarChamados extends JFrame {
     private JButton btnSalvar, btnNovo, btnExcluir;
     private Chamado chamadoSelecionado = null;
 
-    public TelaGerenciarChamados() {
+    public TelaGerenciadorChamados() {
         super("Gerenciar Chamados");
         chamadoDAO = new ChamadoDAO();
 
@@ -110,7 +107,6 @@ public class TelaGerenciarChamados extends JFrame {
         txtTitulo.requestFocus();
         btnExcluir.setEnabled(false);
     }
-
     private void salvarChamado() {
         String titulo = txtTitulo.getText();
         String descricao = txtDescricao.getText();
@@ -121,7 +117,7 @@ public class TelaGerenciarChamados extends JFrame {
             return;
         }
 
-        if (chamadoSelecionado == null) {
+        if (chamadoSelecionado == null) { // Criando um novo chamado
             Chamado novoChamado = new Chamado(0, titulo, descricao, status);
             chamadoDAO.adicionarChamado(novoChamado);
             JOptionPane.showMessageDialog(this, "Chamado criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);

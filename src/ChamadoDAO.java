@@ -1,18 +1,16 @@
-import br.com.gravador.model.Chamado;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+// O nome do pacote foi mantido, mas a convenção é usar letras minúsculas (ex: br.com.pandemonium.model)
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChamadoDAO {
 
+    // O código aqui estava correto, o problema era a falta dos imports acima.
     private static final List<Chamado> chamados = new ArrayList<>();
     private static int proximoId = 1;
 
-    // Bloco para já iniciar com alguns dados de exemplo
     static {
-        chamados.add(new Chamado(proximoId++, "Computador não liga", "O PC da recepção não dá sinal de vida.", "Aberto"));
-        chamados.add(new Chamado(proximoId++, "Impressora sem tinta", "A impressora do financeiro está falhando a cor preta.", "Aberto"));
+        chamados.add(new Chamado(proximoId++, "Gravador com defeito", "O gravador de bateria nao esta funcionando.", "Aberto"));
+        chamados.add(new Chamado(proximoId++, "Faixa não salva", "A faixa da segunda guitarra nao foi salva", "Aberto"));
     }
 
     public void adicionarChamado(Chamado chamado) {
