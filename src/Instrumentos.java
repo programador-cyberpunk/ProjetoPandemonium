@@ -1,7 +1,9 @@
-import javax.swing.JFrame;
-import java.awt.event.ActionListener;
+import br.com.gravador.model.Chamado;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.List;
+import java.awt.event.ActionListener;
+
 public class Instrumentos {
     public static void main(String[] args) {
         System.out.println("Hello world!");
@@ -124,8 +126,6 @@ public class Instrumentos {
             private String chaveSeletora;
             private Usuario usuario;
 
-            public Guitarra() {}
-
             public Guitarra(int qtdCordas, String cordasNome, String tom, int knobs, int captadores,
                             String drive, String chaveSeletora, Usuario usuario) {
                 this.qtdCordas = qtdCordas;
@@ -232,7 +232,7 @@ public class Instrumentos {
             private int qtdCordas;
             private String cordasNome;
             private String tom;
-            private Instrumentos.PandemoniumClasses.Usuario usuario;
+            private Usuario usuario;
 
             public Banjo(int qtdCordas, String cordasNome, String tom, Usuario usuario) {
                 this.qtdCordas = qtdCordas;
@@ -249,8 +249,8 @@ public class Instrumentos {
             public void setCordasNome(String cordasNome) { this.cordasNome = cordasNome; }
             public String getTom() { return tom; }
             public void setTom(String tom) { this.tom = tom; }
-            public Instrumentos.PandemoniumClasses.Usuario getUsuario() { return usuario; }
-            public void setUsuario(Instrumentos.PandemoniumClasses.Usuario usuario) { this.usuario = usuario; }
+            public Usuario getUsuario() { return usuario; }
+            public void setUsuario(Usuario usuario) { this.usuario = usuario; }
         }
 
         }
@@ -338,12 +338,12 @@ public class Instrumentos {
             private String efeitos;
             private String knobs;
             private Usuario usuario;
-            private Instrumento instrumentoRelacionado;
+            private Instrumentos.instrumentoRelacionado;
 
             public Pedal() {}
 
             public Pedal(String tipo, String nome, String efeitos, String knobs,
-                         Usuario usuario, Instrumento instrumentoRelacionado) {
+                         Usuario usuario, Instrumentos.Instrumento instrumentoRelacionado) {
                 this.tipo = tipo;
                 this.nome = nome;
                 this.efeitos = efeitos;
