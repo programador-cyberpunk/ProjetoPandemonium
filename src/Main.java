@@ -16,4 +16,7 @@ public class Main {
             }
         });
     }
+
+    public static void setVisible(boolean b) {
+    }
 }

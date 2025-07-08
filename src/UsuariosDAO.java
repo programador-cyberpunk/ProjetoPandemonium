@@ -1,14 +1,11 @@
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-// package br.com.gravador.dao;
-
-import br.com.gravador.model.Usuario; // Certifique-se de importar sua classe Usuario
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UsuarioDAO {
+public class UsuariosDAO {
 
     private static final List<Usuario> usuarios = new ArrayList<>();
     private static int proximoId = 1;
@@ -17,6 +14,7 @@ public class UsuarioDAO {
         usuarios.add(new Usuario(proximoId++, "admin", "admin123"));
         usuarios.add(new Usuario(proximoId++, "user", "senha123"));
     }
+    //
 
     public void adicionarUsuario(String username, String password) {
         Usuario novoUsuario = new Usuario(proximoId++, username, password);

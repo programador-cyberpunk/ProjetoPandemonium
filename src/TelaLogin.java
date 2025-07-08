@@ -9,13 +9,13 @@ public class TelaLogin extends JFrame {
     private JTextField txtUsuario;
     private JPasswordField txtSenha;
     private JButton btnEntrar;
-    private UsuarioDAO usuarioDAO;
+    private UsuariosDAO usuariosDAO;
 
     public TelaLogin() {
 
         super("Login - Pandemonium");
 
-        usuarioDAO = new UsuarioDAO();
+        usuariosDAO = new UsuariosDAO();
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,7 +69,7 @@ public class TelaLogin extends JFrame {
         String username = txtUsuario.getText();
         String password = new String(txtSenha.getPassword());
 
-        Usuario usuario = usuarioDAO.validarLogin(username, password);
+        Usuario usuario = usuariosDAO.validarLogin(username, password);
 
         if (usuario != null) {
             JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
