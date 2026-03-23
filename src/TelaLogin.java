@@ -67,9 +67,9 @@ public class TelaLogin extends JFrame {
 
     private void realizarLogin() {
         String username = txtUsuario.getText();
-        String password = new String(txtSenha.getPassword());
+        String senha = new String(txtSenha.getPassword());
 
-        Usuario usuario = usuariosDAO.validarLogin(username, password);
+        Usuario usuario = usuariosDAO.validarLogin(username, senha);
 
         if (usuario != null) {
             JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);

@@ -1,18 +1,15 @@
-import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.List;
-
 public class Usuario {
 
         private int id;
         private String username;
-        private String password;
+        private String senha;
+        private String nome;
+        private String email;
 
         public Usuario(int id, String username, String password) {
             this.id = id;
             this.username = username;
-            this.password = password;
+            this.senha = senha;
         }
 
         public int getId() {
@@ -32,10 +29,10 @@ public class Usuario {
         }
 
         public String getPassword() {
-            return password;
+            return senha;
         }
 
         public void setPassword(String password) {
-            this.password = password;
+            this.senha = senha;
         }
     }
