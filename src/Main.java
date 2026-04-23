@@ -12,7 +12,7 @@ public class Main {
             @Override
             public void run() {
                 TelaLogin telaLogin = new TelaLogin();
-                telaLogin.setVisible(true); // Torna a janela de login visível
+                telaLogin.setVisible(true); // AQUI COMEÇA O PANDEMONIUM
             }
         });
     }
