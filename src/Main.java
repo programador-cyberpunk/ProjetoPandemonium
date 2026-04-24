@@ -1,6 +1,7 @@
 import Login.TelaLogin;
 import Usuario.Usuario;
-import javax.swing.JFrame;
+
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.InputStream;
-import javax.swing.SwingUtilities;
 
 
 public class Main {
@@ -21,8 +21,10 @@ public class Main {
                 telaLogin.setVisible(true); // AQUI COMEÇA O PANDEMONIUM
             }
         });
-    }
 
+    }
     public static void setVisible(boolean b) {
     }
+
+
 }
