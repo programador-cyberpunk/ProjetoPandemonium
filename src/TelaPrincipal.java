@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.nio.file.Files;
+
+import Usuario.UsuariosDAO;
 import javazoom.jl.player.Player;
 
     public class TelaPrincipal extends JFrame {
@@ -44,7 +46,7 @@ import javazoom.jl.player.Player;
                 btnUpload.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e){
-                        JFileChooser fileChooser = new JFileChooser():
+                        JFileChooser fileChooser = new JFileChooser();
                         //agora é onde o filtro começa a agir
                         FileNameExtensionFilter filtro = new  FileNameExtensionFilter("Arquivos de AUDIO (*.mp3. *.wav, *.ogg,) mp3, wav, ogg.\n NÂO ME INVENTA MERDA !!!!!!");
                         fileChooser.setFileFilter(filtro);
@@ -53,6 +55,11 @@ import javazoom.jl.player.Player;
                         int retorno = fileChooser.showOpenDialog(null);
                         if (retorno == JFileChooser.APPROVE_VALUE){// sei la pq ta dando esse erro, eu fiz tudo certinho
                             File arquivo = fileChooser.getSelectedFile();
+                        if(UsuariosDAO.arquivoAudio(audioSelecionado)){
+                            JOptionPane.showMessageDialog(null, "Arquivo selecionado com sucesso" + arquivo);
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Deu ruim, esse arquivo eh invalido");
+                        }
                         }
                     }
                 });
@@ -67,4 +74,3 @@ import javazoom.jl.player.Player;
                 });
             }
         }
-    

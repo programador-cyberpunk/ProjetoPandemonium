@@ -16,11 +16,11 @@ import java.util.Optional;
 public class Armazenamento {
     //se pa, aqui vai ficar os arquivos, eu acho pelo menos
     private final Path raiz = Paths.get("upload-dir");
-        public void salvarArmazenamento( String nomeArquivo, InputStream arquivoInput){
+        public void salvarArmazenamento( String nomeArquivo, InputStream audioInput){
             try{
                 if(!Files.exists(raiz)) Files.createDirectory(raiz);
-                Files.copy(arquivoInput, this.raiz.resolve(nomeArquivo));
-                System.out.println("Taake salvo com sucesso em: " + nomeArquivo); //nao estraga minha piada
+                Files.copy(audioInput, this.raiz.resolve(nomeAudio));
+                System.out.println("Taake salvo com sucesso em: " + nomeAudio); //nao estraga minha piada
             } catch (Exception e){
                 throw new RuntimeException("Erro ao salvar arquivo: " + e.getMessage());
             }

@@ -1,7 +1,7 @@
 package Login;
 import Usuario.UsuariosDAO;
 import com.sun.tools.javac.Main;
-
+import Usuario.Usuario;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +12,7 @@ public class TelaLogin extends JFrame {
     private JTextField txtUsuario;
     private JPasswordField txtSenha;
     private JButton btnEntrar;
-    private UsuariosDAO usuariosDAO;
+    private UsuarioDAO usuarioDAO;
 
     public TelaLogin() {
 
