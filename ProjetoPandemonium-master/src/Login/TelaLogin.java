@@ -12,7 +12,7 @@ public class TelaLogin extends JFrame {
     private JTextField txtUsuario;
     private JPasswordField txtSenha;
     private JButton btnEntrar;
-    private UsuariosDAO usuariosDAO;
+    private UsuarioDAO usuarioDAO;
 
     public TelaLogin() {
 

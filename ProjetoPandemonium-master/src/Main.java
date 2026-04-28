@@ -1,6 +1,5 @@
 import Login.TelaLogin;
 import Usuario.Usuario;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
