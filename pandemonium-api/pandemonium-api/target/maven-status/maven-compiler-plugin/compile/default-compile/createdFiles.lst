@@ -1,0 +1,5 @@
+ifsp\edu\br\pandemonium_api\controller\UsuarioController.class
+ifsp\edu\br\pandemonium_api\model\Usuario.class
+ifsp\edu\br\pandemonium_api\PandemoniumApiApplication.class
+ifsp\edu\br\pandemonium_api\repository\UsuarioRepository.class
+ifsp\edu\br\pandemonium_api\service\AudioService.class
