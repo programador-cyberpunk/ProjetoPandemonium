@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.io.InputStream;
 
 
-public class Main {
+public class Main extends javax.swing.JFrame{
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -22,8 +22,5 @@ public class Main {
         });
 
     }
-    public static void setVisible(boolean b) {
-    }
-
 
 }

@@ -1,6 +1,5 @@
 package Login;
 import Usuario.UsuariosDAO;
-import com.sun.tools.javac.Main;
 import Usuario.Usuario;
 import javax.swing.*;
 import java.awt.*;
@@ -67,22 +66,21 @@ public class TelaLogin extends JFrame {
         });
     }
 
-    private void realizarLogin() {
-        String username = txtUsuario.getText();
-        String senha = new String(txtSenha.getPassword());
-
-        Usuario usuario = usuarioDAO.apiLogin(username, senha);
+    public Usuario apiLogin(String username, String senha) {
+        /*String username = txtUsuario.getText();
+        String senha = new String(txtSenha.getPassword());*/
 
         if (usuario != null) {
             JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-            Main main = new Main();
-            Main.setVisible(true);
+            TelaPrincipal = new TelaPrincipal();
+            JFrame.setVisible(true);
             this.dispose();
 
         } else {
 
             JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
         }
+        return TelaPrincipal;
     }
 }
