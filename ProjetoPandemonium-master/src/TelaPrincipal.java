@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.nio.file.Files;
+
+import Magicka.AudioDAO;
 import Usuario.UsuariosDAO;
 import javax.swing.JFrame;
+import TelaLogin.TelaLogin;
 //import javazoom.jl.player.Player;//
 
     public class TelaPrincipal extends JFrame {
@@ -53,9 +56,10 @@ import javax.swing.JFrame;
                         fileChooser.setAcceptAllFileFilterUsed(false);
 
                         int retorno = fileChooser.showOpenDialog(null);
-                        if (retorno == JFileChooser.APPROVE_VALUE){// sei la pq ta dando esse erro, eu fiz tudo certinho
+                        if (retorno == JFileChooser.APPROVE_OPTION){// sei la pq ta dando esse erro, eu fiz tudo certinho
                             File arquivo = fileChooser.getSelectedFile();
-                        if(UsuariosDAO.arquivoAudio(audioSelecionado)){
+                            AudioDAO audioDAO = new AudioDAO();
+                        if(AudioDAO.arquivoAudio(arquivo)){
                             JOptionPane.showMessageDialog(null, "Arquivo selecionado com sucesso" + arquivo);
                         }else {
                             JOptionPane.showMessageDialog(null, "Deu ruim, esse arquivo eh invalido");

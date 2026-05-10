@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import TelaPrincipal.TelaPrincipal;
 public class TelaLogin extends JFrame {
 
     private JTextField txtUsuario;
@@ -66,21 +66,18 @@ public class TelaLogin extends JFrame {
         });
     }
 
-    public Usuario apiLogin(String username, String senha) {
-        /*String username = txtUsuario.getText();
-        String senha = new String(txtSenha.getPassword());*/
+    public void actionPerformed(Action e) {
+        String username = txtUsuario.getText();
+        String senha = txtSenha.getText();
 
-        if (usuario != null) {
-            JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-            TelaPrincipal = new TelaPrincipal();
-            JFrame.setVisible(true);
-            this.dispose();
-
+        UsuariosDAO dao = new UsuariosDAO();
+        Usuario u = dao.apiLogin(username, senha);
+        if (u != null) {
+            JOptionPane.showMessageDialog(this, "Login realizado caralho!");
+            new TelaPrincipal().setVisible(true); // Abre a principal
+            dispose();
         } else {
-
-            JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos, tente outra vez");
         }
-        return TelaPrincipal;
     }
 }
