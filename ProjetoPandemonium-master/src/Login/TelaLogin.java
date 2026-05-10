@@ -5,7 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import TelaPrincipal.TelaPrincipal;
+ import Telas.TelaPrincipal;
+
 public class TelaLogin extends JFrame {
 
     private JTextField txtUsuario;

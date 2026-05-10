@@ -10,15 +10,15 @@ import java.util.Optional;
 
 public class Audio {
     private int idAudio;
-    private String filename;
+    private String nomeAudio;
     private String pathLocal;
     private long size;
     private int id_Usuario;
 
     //agora vem a magicka
-    public Audio(int idAudio, String filename, String pathLocal, long size , int id_Usuario) {
+    public Audio(int idAudio, String nomeAudio, String pathLocal, long size , int id_Usuario) {
         this.idAudio = idAudio;
-        this.filename = filename;
+        this.nomeAudio = nomeAudio;
         this.pathLocal = pathLocal;
         this.size = size;
         this.id_Usuario = id_Usuario;
@@ -31,10 +31,10 @@ public class Audio {
     }
 
     public String getFilename(){
-        return filename;
+        return nomeAudio;
     }
     public void setFilename(String filename){
-        this.filename = filename;
+        this.nomeAudio = filename;
     }
 
     public String getPathLocal() {

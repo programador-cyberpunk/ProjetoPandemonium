@@ -14,7 +14,7 @@ public class UsuariosDAO {
 
     private HttpClient httpClient = HttpClient.newHttpClient();
 
-    public void apiLogin(String username, String senha) {
+    public Usuario apiLogin(String username, String senha) {
 
         try {
             String json = "{\"username\":\"" + username + "\", \"senha\":\"" + senha + "\"}";
@@ -38,6 +38,7 @@ public class UsuariosDAO {
             e.printStackTrace();
         }
     }
+
 
     public void addUsuario(String usuario, String senha){
         try{
