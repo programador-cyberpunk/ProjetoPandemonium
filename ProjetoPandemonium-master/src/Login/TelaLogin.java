@@ -62,7 +62,17 @@ public class TelaLogin extends JFrame {
         btnEntrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                realizarLogin();
+                String usuario = txtUsuario.getText();
+                String senha = new String(txtSenha.getPassword());
+
+                UsuariosDAO dao = new UsuariosDAO();
+                Usuario u = dao.apiLogin(usuario, senha);
+                    if (u != null) {
+                        new TelaPrincipal().setVisible(true);// AGORA FUNICONOU ESSA PORRA
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Usuario ou senha sao invalidos");
+                    }
             }
         });
     }
@@ -80,5 +90,6 @@ public class TelaLogin extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos, tente outra vez");
         }
+        //mudei o metodo pra um estatico
     }
 }
