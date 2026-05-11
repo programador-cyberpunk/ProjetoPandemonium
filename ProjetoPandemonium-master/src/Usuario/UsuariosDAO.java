@@ -15,7 +15,6 @@ public class UsuariosDAO {
     private HttpClient httpClient = HttpClient.newHttpClient();
 
     public Usuario apiLogin(String username, String senha) {
-
         try {
             String json = "{\"username\":\"" + username + "\", \"senha\":\"" + senha + "\"}";
             HttpRequest request = HttpRequest.newBuilder()
@@ -24,21 +23,23 @@ public class UsuariosDAO {
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
-            // agora esse caralho funciona porra'
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // Agora sim o response tem o statusCode() filha da puta da porra
             if (response.statusCode() == 200) {
                 System.out.println("Login efetuado com sucesso!");
+                Usuario u = new Usuario(0, "", username, "");
+                u.setUsername(username);
+                return u;
             } else {
                 System.out.println("Deu ruim no login: " + response.statusCode());
+                return null;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
-
 
     public void addUsuario(String usuario, String senha){
         try{
