@@ -10,7 +10,7 @@ import Login.TelaLogin;
 import Magicka.AudioDAO;
 import Usuario.UsuariosDAO;
 import javax.swing.JFrame;
-
+import Magicka.Audio;
 //import javazoom.jl.player.Player;//
 
     public class TelaPrincipal extends JFrame {
@@ -59,10 +59,10 @@ import javax.swing.JFrame;
                         if (retorno == JFileChooser.APPROVE_OPTION){// sei la pq ta dando esse erro, eu fiz tudo certinho
                             File arquivo = fileChooser.getSelectedFile();
                             AudioDAO audioDAO = new AudioDAO();
-                        if(AudioDAO.arquivoAudio(arquivo)){
-                            JOptionPane.showMessageDialog(null, "Arquivo selecionado com sucesso" + arquivo);
+                        if(AudioDAO.Upload(arquivo,1)){
+                            JOptionPane.showMessageDialog( this.arquivo, "Arquivo enviado e catalogado com sucesso" + arquivo);
                         }else {
-                            JOptionPane.showMessageDialog(null, "Deu ruim, esse arquivo eh invalido");
+                            JOptionPane.showMessageDialog(this.arquivo, "Deu ruim, esse arquivo eh invalido");
                         }
                         }
                     }
