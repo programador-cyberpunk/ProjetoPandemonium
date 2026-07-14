@@ -45,36 +45,35 @@ import TelaLogin.TelaLogin;
                 });
 
                 // implementando o botao pra fazer a magica acontecer no bom sentido
-                JButton btnUpload = new JButton("Selecionar Áudio");
-                btnUpload.addActionListener(new ActionListener() {
+                JButton btnUpload = new JButton("Selecionar audio");
+                btnUpload.addActionListener(new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent e){
                         JFileChooser fileChooser = new JFileChooser();
-                        //agora é onde o filtro começa a agir
-                        FileNameExtensionFilter filtro = new  FileNameExtensionFilter("Arquivos de AUDIO (*.mp3. *.wav, *.ogg,) mp3, wav, ogg.\n NÂO ME INVENTA MERDA !!!!!!");
-                        fileChooser.setFileFilter(filtro);
-                        fileChooser.setAcceptAllFileFilterUsed(false);
+                            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivo alguma coisa");
+                            fileChooser.setFileFilter(filtro);
+                            fileChooser.setAcceptAllFileFilterUsed(false);
+                                int retorno = fileChooser.showOpenDialog(null);
+                                    if(retorno == JFileChooser.APPROVE_OPTION){
+                                        File arquivo = fileChooser.getSelectedFile();
+                                    }
 
-                        int retorno = fileChooser.showOpenDialog(null);
-                        if (retorno == JFileChooser.APPROVE_OPTION){// sei la pq ta dando esse erro, eu fiz tudo certinho
-                            File arquivo = fileChooser.getSelectedFile();
-                            AudioDAO audioDAO = new AudioDAO();
-                        if(AudioDAO.arquivoAudio(arquivo)){
-                            JOptionPane.showMessageDialog(null, "Arquivo selecionado com sucesso" + arquivo);
-                        }else {
-                            JOptionPane.showMessageDialog(null, "Deu ruim, esse arquivo eh invalido");
-                        }
-                        }
+                                    // porra do AudioDAO certo
+                                AudioDAO audioDAO = new AudioDAO();
+                                    if(audioDAO.processarUpload(arquivo, 1)){
+                                        JOptionPane.showMessageDialog(null, "Arquivo enviado e catalogado, gg");
+                                    }else {
+                                        JOptionPane.showMessageDialog(null, "Deu ruim, esse arquivo ta lombrado")
+                                    }
                     }
-                });
-                AbstractButton itemGerenciadorChamados = null;// foi do jeito que deu porra
-                itemGerenciadorChamados.addActionListener(new ActionListener() {
+                }
+                }
+            });
+
+            JButton itemGerenciadorChamados = new JButton("Gerenciador de chamados");
+                itemGerenciadorChamados.addActionListener(new ActionListener(){
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-
+                     public void actionPerformed(ActionEvent e){
                         TelaGerenciadorChamados telaChamados = new TelaGerenciadorChamados();
-                        telaChamados.setVisible(true);
-                    }
-                });
-            }
         }
+    });
