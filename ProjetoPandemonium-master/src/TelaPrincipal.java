@@ -6,13 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.nio.file.Files;
-
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import Magicka.AudioDAO;
 import Usuario.UsuariosDAO;
 import javax.swing.JFrame;
 import TelaLogin.TelaLogin;
-//import javazoom.jl.player.Player;//
-
+//import javazoom.jl.player.Player;//fodase isso aqui
     public class TelaPrincipal extends JFrame {
             public TelaPrincipal() {
                 super("Menu Principal - Pandemonium");
