@@ -3,12 +3,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
-import javax.embed.swing.JFXPanel;
-import javax.scene.media.Media;
-import javax.scene.media.MediaPlayer;
+import javafx.sound.sampled.*;
 import Usuario.Usuario;
 import Chamado.Chamado;
-
 
 public class TelaGerenciadorChamados extends JFrame {
 
