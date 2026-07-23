@@ -11,45 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.io.InputStream;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.sound.sampled.*;
 
-//import javazoom.jl.player.Player;//
-
-public class AudioDAO {
-    public boolean Upload(File arquivo, int idUsuario) {
-        //tentativa primaria de barrar outros tipos de arquivo
-        if (!isAudio(arquivo)) {
-            System.out.println("Esse arquivo nao eh valido");
+    public class AudioDAO{
+        //primeira etapa de verificação
+        public boolean Upload(File arquivo, int idUsuario){
+        if(!isAudio(arquivo)){
             return false;
         }
-        try (FileInputStream fis = new FileInputStream(arquivo)) {
-            Armazenamento storage = new Armazenamento();
-            //criar essa porra caso não exista
-            Audio novoAudio = new Audio(
-                    0,
-                    arquivo.getName(),
-                    arquivo.getAbsolutePath(),
-                    arquivo.length(),
-                    idUsuario
-            );
-            //mensagem de sucesso se o burro nao mandou um arquivo e tive que criar
-            System.out.println("Audio catalogado com sucesso: " + novoAudio.getFilename());
-            return true;
+        try(FileInputStream fis = new FileInuputStream((arquivo)){
+            Armazenamnto storage = new Armazenamento();
+            storage.salvarArmazenamento(arquivo.getName(), fis);
 
-        } catch (IOException e) {
+            Audio novoAudio = new Audio(0, arquivo.getName(), arquivo.getAbsolutePath(), arquivo.length(), idUsuario);
+            System.out.printLn("Audio salvo: " +novoAudio.getFileName());
+            return true;
+        }catch (IOException e){
             e.printStackTrace();
             return false;
         }
     }
 
-    private boolean isAudio(File arquivo) {
-        try {
-            String tipoMime = Files.probeContentType(arquivo.toPath());
-            return tipoMime != null && tipoMime.contains("audio/");
-        } catch (IOException e) {
-            return false;
-        }
+    private boolean isAudio(File arquivo){
+            try{
+                String tipoMime = Files.probeContentType(arquivo.toPath());
+                return tipoMime != null && tipoMime.contains("audio/");
+            }catch (IOException e){
+                return false;
+            }
     }
-}
+    }
