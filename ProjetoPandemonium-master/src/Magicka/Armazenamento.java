@@ -4,10 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.InputStream;
-//import javazoom.jl.player.Player;//
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.sound.sampled.*;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,18 +15,18 @@ import java.util.Optional;
 // vamo importa tudo e torce pra dar certo
 
 public class Armazenamento {
-    //se pa, aqui vai ficar os arquivos, eu acho pelo menos
-    private final Path raiz = Paths.get("upload-dir");
-        public void salvarArmazenamento( String nomeArquivo, InputStream audioInput){
+    private final Path raiz = Path.get("upload-dir");
+
+    private void salvaArmazenamento(String nomeArquivo, InputStream audioInput){
             try{
-                if(!Files.exists(raiz)) {
+                if(!Files.existis(raiz)){
                     Files.createDirectories(raiz);
                 }
-                Path destino = this.raiz.resolve(nomeArquivo);
-                Files.copy(audioInput, destino, StandardCopyOption.REPLACE_EXISTING);
+              Path destino = this.raiz.resolve(nomeArquivo);
+              Files.copy(audioInput, destino, StandartCopyOption.REPLACE_EXISTING);
             }catch (Exception e){
-                throw new RuntimeException("Erro ao salvar arquivo: " + e.getMessage());
+                throw  new RuntimeException("Deu bosta ao salvar os arquivos... Tente de novo" + e.getMessage());
             }
 
-        }
+    }
 }
