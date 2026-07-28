@@ -5,20 +5,23 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javazoom.jl.player.Player;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 // nao me faz pergunta dificil porra
 
 public class Audio {
     private int idAudio;
-    private String filename;
+    private String nomeAudio;
     private String pathLocal;
     private long size;
     private int id_Usuario;
 
     //agora vem a magicka
-    public Audio(int idAudio, String filename, String pathLocal, long size , int id_Usuario) {
+    public Audio(int idAudio, String nomeAudio, String pathLocal, long size , int id_Usuario) {
         this.idAudio = idAudio;
-        this.filename = filename;
+        this.nomeAudio = nomeAudio;
         this.pathLocal = pathLocal;
         this.size = size;
         this.id_Usuario = id_Usuario;
@@ -31,10 +34,10 @@ public class Audio {
     }
 
     public String getFilename(){
-        return filename;
+        return nomeAudio;
     }
     public void setFilename(String filename){
-        this.filename = filename;
+        this.nomeAudio = filename;
     }
 
     public String getPathLocal() {

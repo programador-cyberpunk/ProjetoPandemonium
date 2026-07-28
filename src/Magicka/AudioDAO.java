@@ -21,7 +21,7 @@ import javax.sound.sampled.*;
            }
            try (FileInputStream fis = new FileInputStream(arquivo)){
                Armazenamento  storage = new Armazenamento();
-               storage.salvarArmazenamento(arquivo.getName(), fis);
+               storage.salvar(arquivo.getName(),fis);
                Audio novoAudio = new  Audio(0, arquivo.getName(), arquivo.getAbsolutePath(), arquivo.length(), idUsuario);
                System.out.println("Audio catalogado com sucesso: " + novoAudio.getFilename());
                return true;
