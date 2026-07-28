@@ -3,7 +3,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
-import javafx.sound.sampled.*;
+import javax.sound.sampled.*;
 import Usuario.Usuario;
 import Chamado.Chamado;
 

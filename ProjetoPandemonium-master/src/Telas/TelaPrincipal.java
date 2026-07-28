@@ -1,89 +1,78 @@
-package TelaLogin;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent.;
-import java.awt.event.ActionListener;
-import java.io.File;
-import Magicka.AudioDAO;
-import Login.TelaLogin;
-import javax.sound.sampled.*;
-public class TelPrinciapl extends JFrame(){
-        super("Menu - PANDEMONIUM");
+    package Telas;
+    import javax.swing.*;
+    import javax.swing.filechooser.FileNameExtensionFilter;
+    import java.awt.FlowLayout;
+    import java.awt.event.ActionEvent.*;
+    import java.awt.event.ActionListener;
+    import java.io.File;
+    import Magicka.AudioDAO;
+    import Login.TelaLogin;
+    import javax.sound.sampled.*;
+    import javax.swing.*;
+    import javax.swing.filechooser.FileNameExtensionFilter;
+    import java.awt.FlowLayout;
+    import java.awt.event.ActionEvent;
+    import java.awt.event.ActionListener;
+    import java.io.File;
+    import Magicka.AudioDAO;
 
-setSize(800,600);
+    public class TelaPrincipal extends JFrame {
 
-setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        public TelaPrincipal() {
+            super("Menu Principal - Pandemonium");
 
-setLocstionRelativeTo(null);
+            setSize(800, 600);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLocationRelativeTo(null);
+            setLayout(new FlowLayout());
 
-setLayout( new FlowLayout());
+            // Menu
+            JMenuBar menuBar = new JMenuBar();
+            JMenu menuArquivo = new JMenu("Arquivo");
+            JMenuItem itemSair = new JMenuItem("Sair");
+            menuArquivo.add(itemSair);
 
-//menu do desktop
-JMenuBar menuBar = new JMenuBar();
-JMenu menuArquivo = new JMenu("Arquivo");
-JMenuItem itemSair = new JMenuItem("Sair");
-       menuArquivo.
+            JMenu menuChamados = new JMenu("Chamados");
+            JMenuItem itemGerenciarChamados = new JMenuItem("Gerenciar Chamados");
+            menuChamados.add(itemGerenciarChamados);
 
-add(itemSair);
+            menuBar.add(menuArquivo);
+            menuBar.add(menuChamados);
+            setJMenuBar(menuBar);
 
-//chamados
-JMenu menuChamados = new JMenu("Chamados")
-JMenuItem itemGerenciarChamados = new JMenuItem("Gerenciar chamados");
-       menuChamados.
+            // Ações
+            itemSair.addActionListener(e -> System.exit(0));
 
-add(itemGerenciarChamados);
-       menuBar.
+            itemGerenciarChamados.addActionListener(e -> {
+                TelaGerenciadorChamados telaChamados = new TelaGerenciadorChamados();
+                telaChamados.setVisible(true);
+            });
 
-add(menuArquivo);
-       menuBar.
+            // Botão Upload
+            JButton btnUpload = new JButton("Selecionar Áudio");
+            btnUpload.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser fileChooser = new JFileChooser();
+                    FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivos de Áudio (*.mp3, *.wav, *.ogg)", "mp3", "wav", "ogg");
+                    fileChooser.setFileFilter(filtro);
+                    fileChooser.setAcceptAllFileFilterUsed(false);
 
-add(menuChamados);
+                    int retorno = fileChooser.showOpenDialog(TelaPrincipal.this);
 
-// acoes do menu
-       set.
+                    if (retorno == JFileChooser.APPROVE_OPTION) {
+                        File arquivo = fileChooser.getSelectedFile();
 
-JMenuBar(menuBar);
-       itemSair.
-
-addActionListener( new ActionListener() {
-    @Override
-    public void actionPerformed (ActionEvent e){
-        System.exit(0);
-    }
-});
-
-        itemGerenciarChamados.
-
-addActionListener( new ActionListener() {
-    @Override
-    public void actionPerformed (ActionEvent e){
-        TelaGerenciadorChamados telaChamados = new TelaGereniadorChamados();
-        telaChamados.setVisible(true);
-    }
-});
-
-JButton btnUpload = new JButton("Selecionar arquivo");
-btnUpload.addActionListener( new ActionListener(){
-    @Override
-    public void actionPerformed(ActionEvent e){
-        JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivo configurado");
-
-        fileChooser.setFileFilter(filtro);
-        fileChooser.setAcceptAllFileFilterUsed(false);
-
-        int retorno = fileChooser.showOpenDialog(TelPrinciapl.this);
-        if(retorno == JFileChooser.APPROVE_OPTION){
-            File arquivo = fileChooser.getSelectefFile();
-
-            if(audioDAO.Upload(arquivo, 1)){
-                JOptionPane.showMessageDialog(TelPrinciapl.this, "Arquivo enviado com suceso");
-            }else {
-                JOptionPane.showMessageDialog(TelPrinciapl.this, "Deu ruim, nao deu pra enviar seu arquivo");
-            }
-        }
-    }
-});
-add(btnUpload);
-        }
+                        AudioDAO audioDAO = new AudioDAO();
+                        if (audioDAO.Upload(arquivo, 1)) {
+                            JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo enviado e catalogado!");
+                        } else {
+                            JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo inválido ou erro no envio!");
+                        }
+                    }
                 }
+            });
+
+            add(btnUpload);
+        }
+    }
