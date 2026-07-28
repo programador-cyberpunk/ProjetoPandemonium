@@ -4,8 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Chamado {
-
+public class Chamado extends JFrame {
     private int id;
     private String titulo;
     private String descricao;

@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
- import Telas.TelaPrincipal;
+import Telas.TelaPrincipal;
 
 public class TelaLogin extends JFrame {
 
