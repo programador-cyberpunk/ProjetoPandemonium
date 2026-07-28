@@ -6,7 +6,7 @@ import java.util.List;
 import javax.sound.sampled.*;
 import Usuario.Usuario;
 import Chamado.Chamado;
-
+import Chamado.ChamadoDAO;
 public class TelaGerenciadorChamados extends JFrame {
 
     private ChamadoDAO chamadoDAO;
