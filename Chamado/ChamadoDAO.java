@@ -8,8 +8,31 @@ public class ChamadoDAO{
     private static int proximoId = 1;
 
     public ChamadoDAO(){}
-    public Lis<Chamado> listarTodos(){
+    public List<Chamado> listarTodos(){
         return listaChamados;
     }
 
+    // ta no  nome ne porra
+    public boolean addChamado(Chamado chamado){
+        if(chamado != null){
+            chamado.setId(proximoId++);
+            listaChamados.add(chamado);
+            return true;
+        }
+        return false;
+    }
+// atualiozar
+    public boolean atualizarChamado(Chamado chamadoAtualizado){
+        for(int i = 0; i < listaChamados.size(); i++){
+            if(listaChamados.get(i).getId() == chamadoAtualizado.getId()){
+                listaChamados.set(i, chamadoAtualizado);
+                return true;
+            }
+        }
+        return false;
+    }
+    //delete
+    public boolean deletarChamado(int id){
+        return listaChamados.removeIf(chamado -> chamado.getId() == id);
+    }
 }
