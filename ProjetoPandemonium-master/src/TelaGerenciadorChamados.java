@@ -1,14 +1,12 @@
-
+package Telas;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
-import javax.embed.swing.JFXPanel;
-import javax.scene.media.Media;
-import javax.scene.media.MediaPlayer;
+import javax.sound.sampled.*;
 import Usuario.Usuario;
 import Chamado.Chamado;
-
+import Chamado.ChamadoDAO;
 public class TelaGerenciadorChamados extends JFrame {
 
     private ChamadoDAO chamadoDAO;
@@ -124,7 +122,7 @@ public class TelaGerenciadorChamados extends JFrame {
 
         if (chamadoSelecionado == null) { // Criando um novo chamado
             Chamado novoChamado = new Chamado(0, titulo, descricao, status);
-            chamadoDAO.adicionarChamado(novoChamado);
+            chamadoDAO.addChamado(novoChamado);
             JOptionPane.showMessageDialog(this, "Chamado criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } else {
             chamadoSelecionado.setTitulo(titulo);
