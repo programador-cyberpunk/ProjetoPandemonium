@@ -1,37 +1,38 @@
 // O nome do pacote foi mantido, mas a convenção é usar letras minúsculas (ex: br.com.pandemonium.model)
+package Chamado;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChamadoDAO {
-
-    // O código aqui estava correto, o problema era a falta dos imports acima.
-    private static final List<Chamado> chamados = new ArrayList<>();
+public class ChamadoDAO{
+    private static List<Chamado> listaChamados = new ArrayList<>();
     private static int proximoId = 1;
 
-    static {
-        chamados.add(new Chamado(proximoId++, "Gravador com defeito", "O gravador de bateria nao esta funcionando.", "Aberto"));
-        chamados.add(new Chamado(proximoId++, "Faixa não salva", "A faixa da segunda guitarra nao foi salva", "Aberto"));
+    public ChamadoDAO(){}
+    public List<Chamado> listarTodos(){
+        return listaChamados;
     }
 
-    public void adicionarChamado(Chamado chamado) {
-        chamado.setId(proximoId++);
-        chamados.add(chamado);
+    // ta no  nome ne porra
+    public boolean addChamado(Chamado chamado){
+        if(chamado != null){
+            chamado.setId(proximoId++);
+            listaChamados.add(chamado);
+            return true;
+        }
+        return false;
     }
-
-    public List<Chamado> listarTodos() {
-        return new ArrayList<>(chamados);
-    }
-
-    public void atualizarChamado(Chamado chamadoAtualizado) {
-        for (int i = 0; i < chamados.size(); i++) {
-            if (chamados.get(i).getId() == chamadoAtualizado.getId()) {
-                chamados.set(i, chamadoAtualizado);
-                return;
+// atualiozar
+    public boolean atualizarChamado(Chamado chamadoAtualizado){
+        for(int i = 0; i < listaChamados.size(); i++){
+            if(listaChamados.get(i).getId() == chamadoAtualizado.getId()){
+                listaChamados.set(i, chamadoAtualizado);
+                return true;
             }
         }
+        return false;
     }
-
-    public void deletarChamado(int id) {
-        chamados.removeIf(chamado -> chamado.getId() == id);
+    //delete
+    public boolean deletarChamado(int id){
+        return listaChamados.removeIf(chamado -> chamado.getId() == id);
     }
 }
