@@ -13,23 +13,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.InputStream;
 
-
-public class Main extends javax.swing.JFrame{
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                TelaLogin telaLogin = new TelaLogin();
-                telaLogin.setVisible(true); // AQUI COMEÇA O PANDEMONIUM
-            }try
-
-            {
-                com.sun.javafx.application.PlataformImpl.startup(() -> {
-                });
-
-            }catch(
-            Exception ignored)
-
-        });
+public class Main{
+    public static void main(String[] args){
+        try{
+            com.sun.javafx.application.PlattformImpl.startu(()-> {});
+        }catch (Exception ignored){}
     }
+    SwingUtilities.invokeLater(()->{
+        TelaLogin telaLogin = new TelaLogin();
+        telaLogin.setVisible(true);
+    });
+        }
+        
