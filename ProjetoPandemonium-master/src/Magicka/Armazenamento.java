@@ -18,7 +18,7 @@ import java.util.Optional;
 // vamo importa tudo e torce pra dar certo
 
 public class Armazenamento{
-    private final Path raiz = Path.get("upload-dir");
+    private final Path raiz = Paths.get("upload-dir");
 
     public void salvarArmazenamento(String nomeArquivo, InputStream audioInput){
         try{
