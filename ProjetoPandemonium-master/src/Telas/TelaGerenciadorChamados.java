@@ -122,7 +122,7 @@ public class TelaGerenciadorChamados extends JFrame {
 
         if (chamadoSelecionado == null) { // Criando um novo chamado
             Chamado novoChamado = new Chamado(0, titulo, descricao, status);
-            chamadoDAO.adicionarChamado(novoChamado);
+            chamadoDAO.addChamado(novoChamado);
             JOptionPane.showMessageDialog(this, "Chamado criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } else {
             chamadoSelecionado.setTitulo(titulo);
