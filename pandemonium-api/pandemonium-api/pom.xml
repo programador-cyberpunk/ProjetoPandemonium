@@ -34,9 +34,15 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.openjfx</groupId>
-			<artifactId>jafafx-media</artifactId>
+			<artifactId>javafx-media</artifactId>
 			<version>21</version>
+		</dependency>*//
+		<dependency>
+			<groupId>ai.djl.audio</groupId>
+			<artifactId>audio</artifactId>
+			<version>0.36.0</version>
 		</dependency>
+
 		<dependency>
 		<groupId>com.googlecode.soundlibs</groupId>
 			<artifactId>jlayer</artifactId>
