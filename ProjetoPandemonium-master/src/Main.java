@@ -12,16 +12,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.InputStream;
+import javax.swing.SwingUtilities;
 
 public class Main{
-    public static void main(String[] args){
-        try{
-            com.sun.javafx.application.PlattformImpl.startu(()-> {});
-        }catch (Exception ignored){}
-    }
-    SwingUtilities.invokeLater(()->{
-        TelaLogin telaLogin = new TelaLogin();
-        telaLogin.setVisible(true);
-    });
+    public static void main(String[] args) {
+        try {
+            com.sun.javafx.application.PlattformImpl.startu(() -> {
+            });
+        } catch (Exception ignored) {
         }
-        
+
+        SwingUtilities.invokeLater(() -> {
+            TelaLogin telaLogin = new TelaLogin();
+            telaLogin.setVisible(true);
+        });
+    }
+        }
