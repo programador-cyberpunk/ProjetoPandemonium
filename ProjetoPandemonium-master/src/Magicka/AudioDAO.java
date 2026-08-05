@@ -15,7 +15,7 @@ import java.io.InputStream;
 import javax.sound.sampled.*;
 
    public class AudioDAO{
-       public boolean Upoload(File arquivo, int idUsuario){
+       public boolean upload(File arquivo, int idUsuario){
            if(!isAudio(arquivo)){
                return false;
            }

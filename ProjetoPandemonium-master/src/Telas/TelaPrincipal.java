@@ -66,7 +66,7 @@
                             File arquivo = fileChooser.getSelectedFile();
 
                             AudioDAO audioDAO = new AudioDAO();
-                            if (audioDAO.Upload(arquivo, 1)) {
+                            if (audioDAO.upload(arquivo, 1)) {
                                 JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo enviado e catalogado!");
                             } else {
                                 JOptionPane.showMessageDialog(TelaPrincipal.this, "Arquivo inválido ou erro no envio!");
