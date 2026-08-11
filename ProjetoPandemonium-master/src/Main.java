@@ -15,16 +15,15 @@ import java.io.InputStream;
 import javax.swing.SwingUtilities;
 
 public class Main{
-    public static void main(String[] args) {
-        try {
-            com.sun.javafx.application.PlattformImpl.startu(() -> {
-            });
-        } catch (Exception ignored) {
-        }
+    public static void main(String[] args){
+        try{
+            com.sun.javafx.application.PlatformImpl.startup(() ->{});
+        } catch (Throwable t){
 
-        SwingUtilities.invokeLater(() -> {
-            TelaLogin telaLogin = new TelaLogin();
-            telaLogin.setVisible(true);
-        });
-    }
         }
+     SwingUtilities.invokeLater(() ->{
+         TelaLogin telaLogin = new TelaLogin();
+         telaLogin.setVisible(true);
+     });
+    }
+}
