@@ -1,6 +1,9 @@
 import React ,{useState, useEffect} from 'react';
 import {apiService} from 'front-desktop-api/services/api';
 
+// vou testar o chamado por enquanto, mas
+// honestamente essa eh a parte mais que se foda do
+// meu projeto inteiro, a parte daora ainda esta por vir
 export default function App(){
     const[chamados, setChamados] = useState([]);
     const[arquivo, setArquivo] = useState(null);
@@ -39,3 +42,17 @@ export default function App(){
     }
     };
 }
+
+// vem o design agora, ta meio generico mas eu vou personalizar
+return(
+    <div style={styles.container}>
+        <header style={styles.header}>
+            <h1 style={styles.title}>Pandemonium</h1>
+            <span style={styles.statusBadge}>{status}</span>
+        </header>
+
+        <main style={styles.grid}>
+            
+        </main>
+    </div>
+)
