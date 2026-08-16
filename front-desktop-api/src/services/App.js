@@ -81,4 +81,88 @@ return(
             </section>
         </main>
     </div>
+);
+    //agora vem a boniteza
+    const styles = {
+        container: {
+            backgroundColor: '#1211214',
+            color: '#E1E1E6',
+            minHeight: '100vh',
+            padding: '20px',
+            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+        },
+        header: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            borderBottom: '15px',
+            marginBottom: '20px'
+        },
+        title: {
+            color: '#00B37E',
+            fontSize: '1.7rem',
+            margin: 0
+        },
+        statusBadge: {
+            backgroundColor: '#202024',
+            padding: '6px 12px',
+            borderRadius: '20px',
+            fontSize: '0.85rem',
+            border: '1px solid #323238'
+        },
+        grid: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fix, minmax(300px, 1fr))',
+            gap: '20px'
+        },
+        card: {
+            backgroundColor: '#202024',
+            padding: '20px',
+            borderRadius: '8px',
+            border: '1px solid #323238'
+        },
+        cardTitle: {
+            marginTop: 0,
+            fontSize: '1.2rem',
+            borderBottom: '1px solid #323238',
+            paddingBottom: '10px'
+        },
+        fileInput: {
+            display: 'block',
+            width: '100%',
+            marginBottom: '15px',
+            color: '#8D8D99'
+        },
+        button: {
+            backgroundColor: '#00875F',
+            color: '#FFF',
+            border: 'none',
+            padding: '12px',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            width: '100%',
+            fontWeight: 'bold'
+        },
+        list: {
+            listStyle: 'none',
+            padding: 0,
+            margin: 0
+        },
+        listItem: {
+            backgroundColor: '#121214',
+            padding: '12px',
+            borderRadius: '4px',
+            marginBottom: '8px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+        },
+        statusTag: {
+            backgroundColor: '#29292E',
+            fontSize: '0.75rem',
+            padding: '4px 8px',
+            borderRadius: '4px'
+        }
+    };
+
 )
