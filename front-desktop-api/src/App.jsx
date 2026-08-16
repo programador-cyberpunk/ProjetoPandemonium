@@ -1,51 +1,170 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import React, { useState, useEffect } from 'react';
+import { apiService } from './services/api';
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+export default function App() {
+    const [chamados, setChamados] = useState([]);
+    const [arquivo, setArquivo] = useState(null);
+    const [status, setStatus] = useState('Carregando... Guentai');
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+    useEffect(() => {
+        carregarChamados();
+    }, []);
+    //essa aqui é a parte mais foda-se, só inseri primeiro
+    // pra testar tudo direitinho e o app não ficar mto vazio
 
-  return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
+    const carregarChamados = async () => {
+        try {
+            const dados = await apiService.listarChamados();
+            setChamados(dados);
+            setStatus('Conectado a API, gg pa caraio');
+        } catch (err) {
+            setStatus('Deu bosta, erro de conexão no back-end');
+        }
+    };
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
+    const handleUpload = async (e) => {
+        e.preventDefault();
+        if (!arquivo) {
+            alert('Selecione um audio primeiro');
+            return;
+        }
+        try {
+            setStatus('Enviando arquivo... guentai');
+            await apiService.enviarAudio(arquivo);
+            alert('Audio enviado com sucesso!');
+            setArquivo(null);
+            carregarChamados();
+        } catch (err) {
+            alert('Deu ruim ao enviar o audio');
+        } finally {
+            setStatus('Conectado a API, gg pa caraio');
+        }
+    };
 
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
-  );
+    return (
+        <div style={styles.container}>
+            <header style={styles.header}>
+                <h1 style={styles.title}>Pandemonium</h1>
+                <span style={styles.statusBadge}>{status}</span>
+            </header>
+
+            <main style={styles.grid}>
+                {/* O mais importante primeiro,upar os arquivos */}
+                <section style={styles.card}>
+                    <h2 style={styles.cardTitle}>Upload de som</h2>
+                    <form onSubmit={handleUpload}>
+                        <input
+                            type="file"
+                            accept="audio/*"
+                            onChange={(e) => setArquivo(e.target.files[0])}
+                            style={styles.fileInput}
+                        />
+                        <button type="submit" style={styles.button}>
+                            Enviar O Som
+                        </button>
+                    </form>
+                </section>
+
+                {/* Gerenciador de Chamados */}
+                <section style={styles.card}>
+                    <h2 style={styles.cardTitle}>Gerenciador de Chamados</h2>
+                    {chamados.length === 0 ? (
+                        <p style={{ color: '#8D8D99' }}>Nenhum chamado encontrado por hora</p>
+                    ) : (
+                        <ul style={styles.list}>
+                            {chamados.map((item) => (
+                                <li key={item.id} style={styles.listItem}>
+                                    <strong>#{item.id} - {item.titulo}</strong>
+                                    <span style={styles.statusTag}>{item.status}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </section>
+            </main>
+        </div>
+    );
 }
 
-export default App;
+const styles = {
+    container: {
+        backgroundColor: '#121214',
+        color: '#E1E1E6',
+        minHeight: '100vh',
+        padding: '20px',
+        fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+    },
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottom: '1px solid #29292E',
+        paddingBottom: '15px',
+        marginBottom: '20px'
+    },
+    title: {
+        color: '#00B37E',
+        fontSize: '1.7rem',
+        margin: 0
+    },
+    statusBadge: {
+        backgroundColor: '#202024',
+        padding: '6px 12px',
+        borderRadius: '20px',
+        fontSize: '0.85rem',
+        border: '1px solid #323238'
+    },
+    grid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '20px'
+    },
+    card: {
+        backgroundColor: '#202024',
+        padding: '20px',
+        borderRadius: '8px',
+        border: '1px solid #323238'
+    },
+    cardTitle: {
+        marginTop: 0,
+        fontSize: '1.2rem',
+        borderBottom: '1px solid #323238',
+        paddingBottom: '10px'
+    },
+    fileInput: {
+        display: 'block',
+        width: '100%',
+        marginBottom: '15px',
+        color: '#8D8D99'
+    },
+    button: {
+        backgroundColor: '#00875F',
+        color: '#FFF',
+        border: 'none',
+        padding: '12px',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        width: '100%',
+        fontWeight: 'bold'
+    },
+    list: {
+        listStyle: 'none',
+        padding: 0,
+        margin: 0
+    },
+    listItem: {
+        backgroundColor: '#121214',
+        padding: '12px',
+        borderRadius: '4px',
+        marginBottom: '8px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    statusTag: {
+        backgroundColor: '#29292E',
+        fontSize: '0.75rem',
+        padding: '4px 8px',
+        borderRadius: '4px'
+    }
+};
