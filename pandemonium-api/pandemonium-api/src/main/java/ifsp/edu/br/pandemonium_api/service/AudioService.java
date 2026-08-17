@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.nio.file.*;
 @Service
 public class AudioService {
+
+    @Async
+    public CompletableFuture<Void>processarAudio(File arquivoGravado){
+        return CompletableFuture.completedFuture(null);
+    }
     //upload
     public boolean arquivoAudio(MultipartFile arquivo){
         String tipoMime = arquivo.getContentType();
