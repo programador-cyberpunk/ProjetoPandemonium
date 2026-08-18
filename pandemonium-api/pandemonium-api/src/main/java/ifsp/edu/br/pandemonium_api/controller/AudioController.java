@@ -34,28 +34,20 @@ import org.springframework.web.multipart.MultipartFile;
         return "Lista dos audios";    }
 }
 
-    @GetMapping("/stream/{nomeArquivoSalvo}")
-    public ResponseEntity<ResourceRegion> streamAudio(
-            @PathVariable String nomeArquivoSalvo,
-            @RequestHeader HttpHeaders headers){
+// pra tocar o audio, ou garantir seu funciionamento
+@GetMapping
+public ResponseEntity<List<Audio>> listar() {
+    return ResponseEntity.ok(audioService.listarTodos());
+}
+    @GetMapping("/ouvir/{nomeArquivoSalvo}")
+    public ResponseEntity<Resource> ouvirAudio(@PathVariable String nomeArquivoSalvo){
         try{
             Resource recurso = audioService.carregarArquivo(nomeArquivoSalvo);
-            long contentLenght = recurso.contentLength();
-            HttpRange range = headers.getRange().isEmpty() ? null : headers.get();
-            ResourceRegion region;
-                if(range !=null){
-                    long start = range.getRangeStart(contentLength);
-                    long end = range.getRangeEnd(contentLenght);
-                    long rangeLength = Math.min(1024 * 1024L, end - start + 1);
-                    region = new ResourceRegion(recurso, start, rangeLength);
-                }else{
-                    long rangeLength = Math.min(1024 * 1024L, contentLength);
-                    region = new ResourceRegion(recurso, 0, rangeLength);
-                }
-             return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
-                     .contentType(MediaTypeFactory.getMediaType(recurso).orElse(MediaType.APPLICATION_OCTET_STREAM))
-                             .body(region);
-        } catch(IOException e){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION,"inline; filename=\"" + recurso.getFilename() + "\"")
+                    .contentType(MediaType.parseMediaType("audio/mpeg"))
+                    .body(recurso);
+        }  catch(IOException e){
+           return ResponseEntity.notFound().build();
         }
     }
