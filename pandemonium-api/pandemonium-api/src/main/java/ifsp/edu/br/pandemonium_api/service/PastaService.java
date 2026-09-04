@@ -13,30 +13,28 @@ import java.util.Optional;
 public class PastaService{
     @Autowired
     private PastaRepository pastaRepository;
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public class criaPasta(String nome, String descricao, Integer usuarioId){
-        Usuario usuario = null;
-        if(usuarioId != null){
-            usuario = usuarioRepository.findById(usuarioId).orElse(null);
+        public Pasta criarPasta(String nome, String descricao, Integer usuarioId){
+            Usuario usuario = null;
+            if(usuarioId != null){
+                usuario = usuarioRepository.findById(usuarioId).orElse(null);
+            }
+            Pasta pasta = new Pasta();
+            pasta.setNome(nome);
+            pasta.setDescricao(descricao);
+            pasta.setUsuario(usuario);
+            pasta.setDataCriacao(LocalDateTime.now());
+            return pastaRepository.save(pasta);
         }
-        Pasta pasta = new Pasta();
-        pasta.setNome(nome);
-        pasta.setDescricao(decricao);
-        pasta.setUsuario(usuario);
-        pasta.setDataCriacao(LocalDateTime.now());
-
-        return pastaRepository.save(pasta);
-    }
-    public Optional<Pasta>listarPorUsuario(Integer usuarioId){
-        return pastaRepository.findByUsuarioId(usuarioId);
-    }
-    public List<Pasta> listarPorId(Long id){
-        return pastaRepository.findById(id);
-    }
-    public void deletarPasta(Long id){
-        pastaRepository.deleteById(id);
-    }
+        public List<Pasta> listarPorUsuario(Integer usuarioId){
+            return pastaRepository.findByUsuarioId(usuarioId);
+        }
+        public Optional<Pasta> buscarPorId(Long id){
+            return pastaRepository.findById(id);
+        }
+        public void deletaPasta(Long id){
+            pastaRepository.deleteById(id);
+        }
 }
