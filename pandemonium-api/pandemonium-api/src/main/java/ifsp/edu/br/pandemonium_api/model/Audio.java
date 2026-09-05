@@ -23,4 +23,22 @@ import java.time.LocalDateTime;
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    public Usuario getUsuario(){
+        return usuario;
+    }
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "pasta_id")
+    private Pasta pasta;
+
+        public Pasta getPasta(){
+           return pasta;
+    }
+    public void setPasta(Pasta pasta){
+            this.pasta = pasta;
+    }
 }
