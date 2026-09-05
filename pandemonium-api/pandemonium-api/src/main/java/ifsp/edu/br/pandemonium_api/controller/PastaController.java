@@ -15,14 +15,28 @@ public class PastaController {
 
     @PostMapping
     public ResponseEntity<Pasta> criarPasta(
-            @RequestParam("nome") String nome,@RequestParam(value = "descricao", required = false)
-            String descricao,
+            @RequestParam("nome") String nome, @RequestParam(value = "descricao", required = false)
+    String descricao,
             @RequestParam(value = "usuarioId", required = false) Integer usuarioId)
-    Pasta pasta = pastaService.criarPasta(nome, descricao,usuarioId);
+
+    Pasta pasta = pastaService.criarPasta(nome, descricao, usuarioId);
     return ResponseEntity.ok(pasta);
+
+
+    @GetMapping("/usuario/{usuario}")
+    public ResponseEntity<List<Pasta>> listarPorUsuario(@PathVariable Integer usuarioId) {
+        return ResponseEntity.ok(pastas);
     }
-    
-@GetMapping("/usuario/{usuario}")
-public ResponseEntity<List<Pasta>> listarPorUsuario(@PathVariable Integer usuarioId){
-    return ResponseEntity.ok(pastas);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Pasta> buscarPorId(@PathVariable Long id){
+        return pastaService.buscarPorId(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        pastaService.deletarPasta(id);
+        return ResponseEntity.noContent().build();
+    }
 }
