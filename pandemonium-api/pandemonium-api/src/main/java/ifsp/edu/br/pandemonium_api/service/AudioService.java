@@ -1,68 +1,92 @@
 package ifsp.edu.br.pandemonium_api.service;
 import ifsp.edu.br.pandemonium_api.model.Audio;
+import ifsp.edu.br.pandemonium_api.model.Usuario;
 import ifsp.edu.br.pandemonium_api.repository.AudioRepository;
+import ifsp.edu.br.pandemonium_api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.concurrent.CompletableFuture;
+import javax.sound.midi.Patch;
 import javax.sound.sampled.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
-public class AudioService {
+public class AudioService{
+    private final Path pastaUpoloads = Paths.get("uploads", "audios");
 
-    @Autowired
-    private AudioRepository audioRepository;
+   @Autowired
+   private AudioRepository audioRepository;
+
+   @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public Audio salvarAudio(MultipartFile arquivo, Integer usuarioId) throws  IOException{
+        if(!Files.exists(pastaUpoloads)){
+            Files.createDirectories(pastaUpoloads);
+        }
+    String nomeOriginal = arquivo.getOriginalFilename();
+        String extensao = "";
+       if(nomeOriginal != null && nomeOriginal.contains(".")){
+           extensao = nomeOriginal.substring(nomeOriginal.lastIndexOF("."));
+       }
+
+       String nomeArquivoSalvo = UUID.randomUUID().toString() + extensao;
+       Path caminhoDestino = pastaUpoloads.resolve(nomeArquivoSalvo);
+       Files.copy(arquivo.getInputStream(), caminhoDestino, StandardCopyOption.REPLACE_EXISTING);
+
+       Usuario usuario = null;
+        if(usuarioId != null){
+            usuario = usuarioRepository.findById(usuarioId).orElse(null);
+        }
+
+        Audio audio = new Audio();
+        audio.setNomeOriginal(nomeOriginal);
+        audio.setNomeArquivoSalvo(nomeArquivoSalvo);
+        audio.setUsuario(usuario);
+        audio.setTipoConteudo(arquivo.getContentType());
+        audio.setTamanho(arquivo.getSize());
+
+        Audio salvo = audioRepository.save(audio);
+
+        //processo de duração assincrono em wavefgrm
+        processarAudio(caminhoDestino.toFile(), salvo.getId());
+        return salvo;
+    }
+
+    // ta no nome ja ne caralho
+    public List<Audio> listarAudios(){
+        return audioRepository.findAll();
+    }
+
+    //loadar os arquivos de audio
+    public Resource carregarAudio(String nomeArquivoSalvo) throws IOException{
+        Path caminhoArquivo = pastaUpoloads.resolve(nomeArquivoSalvo).normalize();
+        Resource recurso = new UrlResource(caminhoArquivo.toUri());
+
+           if(recurso.exists() && recurso.isReadable()){
+               return recurso;
+           }else{
+               throw new FileNotFoundException("Audio nao encontrado: " + nomeArquivoSalvo);
+           }
+    }
+
+    public void deletarAudio(Long id) throws IOException{
+        Audio audio = audioRepository.findById(id).orElseThrow(()-> new FileNotFoundException("ID do audio: " + id + "nao foi encontrado"));
+        Path caminhoArquivo = pastaUpoloads.resolve(audio.getNomeArquivoSalvo()).normalize();
+        Files.deleteIfExists(caminhoArquivo);
+        audioRepository.deleteById(id);
+    }
 
     @Async
-    public CompletableFuture<Void>processarAudio(File arquivoAudio, Long audioId){
-        try{
-            //fruxo do audio
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(arquivoAudio);
-            AudioFormat format = audioInputStream.getFormat();
-            Long totalFrames = audioInputStream.getFrameLength();
-
-            //calcula os segundos
-            float Segundos = totalFrames / format.getFrameRate();
-
-            //le os bytes pra pegar os pico de amplitude no waveform
-            byte[] bytes = audioInputStream.readAllBytes();
-            List<Integer> waveform = extrairPicos(bytes, 100);
-
-            //atualiza a entidade no banco de dados com metadados calculados
-            audioRepository.findById(audioId).ifPresent(audio ->{
-                audio.setDuracao(Segundos);
-                audio.setWaveformJson(waveform.toString());
-                audioRepository.save(audio);
-            });
-            audioInputStream.close();
-        } catch (UnsupportedAudioFileException | IOException e){
-            System.err.println("Deu bosta ao ler o arquivo: " + e.getMessage());
-        }
-        return CompletableFuture.completedFuture(null);
-    }
-
-    // mais porra vindo ai
-
-    //upload
-    public boolean arquivoAudio(MultipartFile arquivo){
-        String tipoMime = arquivo.getContentType();
-        return tipoMime != null && tipoMime.startsWith("audio/");// rapaiz isso aqui quebra um galho da porra
-    }
-    //verificar os bang
-    public void salvaAudio(MultipartFile arquivo,String pastaUsuario) throws IOException{
-        Path diretorioDestino = Paths.get("uploads", pastaUsuario);
-        if (!Files.exists(diretorioDestino)){
-         Files.createDirectories(diretorioDestino);
-        }
-        Path caminhoFinal = diretorioDestino.resolve(arquivo.getOriginalFilename());
-        Files.copy(arquivo.getInputStream(), caminhoFinal, StandardCopyOption.REPLACE_EXISTING);
-    }
-
 }
