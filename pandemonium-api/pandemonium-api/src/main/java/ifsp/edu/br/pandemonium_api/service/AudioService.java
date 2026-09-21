@@ -38,7 +38,7 @@ public class AudioService{
     String nomeOriginal = arquivo.getOriginalFilename();
         String extensao = "";
        if(nomeOriginal != null && nomeOriginal.contains(".")){
-           extensao = nomeOriginal.substring(nomeOriginal.lastIndexOF("."));
+           extensao = nomeOriginal.substring(nomeOriginal.lastIndexOf("."));
        }
 
        String nomeArquivoSalvo = UUID.randomUUID().toString() + extensao;
@@ -89,4 +89,45 @@ public class AudioService{
     }
 
     @Async
+    public CompletableFuture<Void> processarAudio(File arquivoAudio, Long audioId){
+        try{
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(arquivoAudio);
+            AudioFormat format = audioInputStream.getFormat();
+            long totalFrames = audioInputStream.getFrameLength();
+
+            float segundos = totalFrames / format.getSampleRate();
+            byte[] bytes = audioInputStream.readAllBytes();
+            List<Integer> waveform = extrairPicos(bytes, 100);
+
+          audioRepository.findById(audioId).ifPresent(audio -> {
+              audio.setDuracao(segundos);
+              audio.setWavefromJson(waveform.toString());
+              audioRepository.save(audio);
+          });
+         audioInputStream.close();
+        }catch (UnsupportedAudioFileException | IOException e){
+            System.err.println("Erro ao processar audio: " + e.getMessage());
+        }
+        return CompletableFuture.completedFuture(null);
+    }
+
+    private List<Integer> extrairPicos(byte[] audioBytes,int pontosDesejados){
+        List<Integer> picos = new ArrayList<>();
+         if(audioBytes == null || pontosDesejados == 0){
+             return picos;
+         }
+      int tamanho = Math.max(1, audioBytes.length / pontosDesejados);
+        for(int i = 0; i < audioBytes.length && picos.size() < pontosDesejados; i += tamanho){
+          int max = 0;
+          int fim = Math.min(i + tamanho, audioBytes.length);
+          for(int j = i; j < fim; j++){
+              int valor = Math.abs(audioBytes[j]);
+               if(valor > max){
+                   max = valor;
+               }
+          }
+         picos.add(max);
+        }
+       return picos;
+    }
 }
