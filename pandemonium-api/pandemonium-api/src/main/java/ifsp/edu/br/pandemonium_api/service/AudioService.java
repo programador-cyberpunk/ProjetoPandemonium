@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @Service
 public class AudioService{
-    private final Path pastaUpoloads = Paths.get("uploads", "audios");
+    private final Path pastaUploads = Paths.get("uploads", "audios");
 
    @Autowired
    private AudioRepository audioRepository;
@@ -31,9 +31,9 @@ public class AudioService{
    @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Audio salvarAudio(MultipartFile arquivo, Integer usuarioId) throws  IOException{
-        if(!Files.exists(pastaUpoloads)){
-            Files.createDirectories(pastaUpoloads);
+    public Audio salvaAudio(MultipartFile arquivo, Integer usuarioId) throws  IOException{
+        if(!Files.exists(pastaUploads)){
+            Files.createDirectories(pastaUploads);
         }
     String nomeOriginal = arquivo.getOriginalFilename();
         String extensao = "";
@@ -42,7 +42,7 @@ public class AudioService{
        }
 
        String nomeArquivoSalvo = UUID.randomUUID().toString() + extensao;
-       Path caminhoDestino = pastaUpoloads.resolve(nomeArquivoSalvo);
+       Path caminhoDestino = pastaUploads.resolve(nomeArquivoSalvo);
        Files.copy(arquivo.getInputStream(), caminhoDestino, StandardCopyOption.REPLACE_EXISTING);
 
        Usuario usuario = null;
@@ -71,7 +71,7 @@ public class AudioService{
 
     //loadar os arquivos de audio
     public Resource carregarAudio(String nomeArquivoSalvo) throws IOException{
-        Path caminhoArquivo = pastaUpoloads.resolve(nomeArquivoSalvo).normalize();
+        Path caminhoArquivo = pastaUploads.resolve(nomeArquivoSalvo).normalize();
         Resource recurso = new UrlResource(caminhoArquivo.toUri());
 
            if(recurso.exists() && recurso.isReadable()){
@@ -83,7 +83,7 @@ public class AudioService{
 
     public void deletarAudio(Long id) throws IOException{
         Audio audio = audioRepository.findById(id).orElseThrow(()-> new FileNotFoundException("ID do audio: " + id + "nao foi encontrado"));
-        Path caminhoArquivo = pastaUpoloads.resolve(audio.getNomeArquivoSalvo()).normalize();
+        Path caminhoArquivo = pastaUploads.resolve(audio.getNomeArquivoSalvo()).normalize();
         Files.deleteIfExists(caminhoArquivo);
         audioRepository.deleteById(id);
     }

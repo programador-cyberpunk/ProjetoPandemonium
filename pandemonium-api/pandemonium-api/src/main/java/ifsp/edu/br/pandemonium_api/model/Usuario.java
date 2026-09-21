@@ -16,6 +16,7 @@ public class Usuario {
         private String username;
 
         @Column(nullable = false)
+        private int idUsuario;
         private String senha;
         private String nome;
         private String email;

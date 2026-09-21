@@ -1,4 +1,6 @@
 package ifsp.edu.br.pandemonium-api.model;
+import ifsp.edu.br.pandemonium_api.model.Audio;
+import ifsp.edu.br.pandemonium_api.model.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -23,6 +25,6 @@ NoArgsConstructor
         @JoinColumn(name = "usuario_id")
         private Usuario usuario;
 
-        @OneToMant(mappedBy = "pasta", cascade = CascadeType.ALL)
+        @OneToMany(mappedBy = "pasta", cascade = CascadeType.ALL)
         private List<Audio> arquivos;
     }
