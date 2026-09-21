@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
     @Column(nullable = false, unique = true)
     private String nomeArquivoSalvo;
     private String tipoConteudo;
-    private Long tamanhoBytes;
+    private Long tamanho;
     private LocalDateTime dataEnvio;
 
     @ManyToOne
@@ -30,6 +30,7 @@ import java.time.LocalDateTime;
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
     }
+
 
     @ManyToOne
     @JoinColumn(name = "pasta_id")
