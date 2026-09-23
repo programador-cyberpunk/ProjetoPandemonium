@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-    public class Guardar{
+    public class Armazenamento{
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
