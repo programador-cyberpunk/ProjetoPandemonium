@@ -65,7 +65,7 @@ public class AudioService{
     }
 
     // ta no nome ja ne caralho
-    public List<Audio> listarAudios(){
+    public List<Audio> listarAudio(){
         return audioRepository.findAll();
     }
 

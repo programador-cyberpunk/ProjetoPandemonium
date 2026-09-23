@@ -1,4 +1,4 @@
-package ifsp.edu.br.pandemonium-api.model;
+package ifsp.edu.br.pandemonium_api.model;
 import ifsp.edu.br.pandemonium_api.model.Audio;
 import ifsp.edu.br.pandemonium_api.model.Usuario;
 import jakarta.persistence.*;
@@ -10,13 +10,13 @@ import java.util.List;
 @Table(name = "pastas")
 @Getter
 @Setter
-NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
     public class Guardar{
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
-        @Column(nullabe = false)
+        @Column(nullable = false)
         private String nome;
 
         private LocalDateTime dataCriacao = LocalDateTime.now();

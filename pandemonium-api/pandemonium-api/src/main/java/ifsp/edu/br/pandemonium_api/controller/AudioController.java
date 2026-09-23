@@ -43,7 +43,7 @@ public class AudioController{
     @GetMapping("/ouvir/{nomeArquivoSalvo}")
     public ResponseEntity<Resource> ouvirAudio(@PathVariable String nomeArquivoSalvo){
         try{
-            Resource recurso = audioService.carregarArquivo(nomeArquivoSalvo);
+            Resource recurso = audioService.carregarAudio(nomeArquivoSalvo);
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + recurso.getFilename() + "\"")
                     .contentType(MediaType.parseMediaType("audio/mpeg"))
@@ -60,7 +60,7 @@ public class AudioController{
             @PathVariable String nomeArquivoSalvo,
             @RequestHeader HttpHeaders headers){
         try{
-            Resource recurso = audioService.carregarArquivo(nomeArquivoSalvo);
+            Resource recurso = audioService.carregarAudio(nomeArquivoSalvo);
             long contentLength = headers.getContentLength();
             HttpRange range = headers.getRange().isEmpty() ? null : headers.getRange().get(0);
             ResourceRegion region;
