@@ -15,15 +15,15 @@ public class Audio {
     private int idAudio;
     private String nomeAudio;
     private String pathLocal;
-    private long size;
+    private long tamanho;
     private int id_Usuario;
 
     //agora vem a magicka
-    public Audio(int idAudio, String nomeAudio, String pathLocal, long size , int id_Usuario) {
+    public Audio(int idAudio, String nomeAudio, String pathLocal, long tamanho , int id_Usuario) {
         this.idAudio = idAudio;
         this.nomeAudio = nomeAudio;
         this.pathLocal = pathLocal;
-        this.size = size;
+        this.tamanho = tamanho;
         this.id_Usuario = id_Usuario;
     }
     public int getIdAudio() {
@@ -48,10 +48,10 @@ public class Audio {
     }
 
     public long getSize(){
-        return size;
+        return tamanho;
     }
     public void setSize(long size){
-        this.size = size;
+        this.tamanho = tamanho;
     }
 
     public int getId_Usuario() {
