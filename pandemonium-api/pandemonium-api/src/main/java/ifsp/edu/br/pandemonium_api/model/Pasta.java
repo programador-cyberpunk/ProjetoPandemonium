@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import lombok.Data;
 
 @Entity
 @Table(name = "pastas")

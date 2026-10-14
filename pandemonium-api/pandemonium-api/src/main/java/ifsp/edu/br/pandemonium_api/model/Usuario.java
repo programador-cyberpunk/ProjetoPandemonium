@@ -1,7 +1,8 @@
 package ifsp.edu.br.pandemonium_api.model;
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.time.LocalDateTime;
+import lombok.Data;
 @Entity
 @Table(name = "usuario")
 @Getter @Setter
