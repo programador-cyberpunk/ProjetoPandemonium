@@ -26,6 +26,7 @@ public class Pasta{
     @OneToMany(mappedBy = "pasta", cascade= CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("pasta")
         private List<Audio> audios = new ArrayList<>();
+    //adivinha?Essa porra é o banco de dados
             public Pasta(){
                 this.dataCriacao = LocalDateTime.now();
             }

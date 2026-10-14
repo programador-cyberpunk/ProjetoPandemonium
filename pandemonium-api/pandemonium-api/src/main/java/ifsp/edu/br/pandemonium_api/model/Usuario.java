@@ -15,6 +15,7 @@ public class Usuario {
     private int id;
         @Column(unique = true, nullable = false)
         private String username;
+        private LocalDateTime dataUpload = LocalDateTime.now();
 
         @Column(nullable = false)
         private int idUsuario;

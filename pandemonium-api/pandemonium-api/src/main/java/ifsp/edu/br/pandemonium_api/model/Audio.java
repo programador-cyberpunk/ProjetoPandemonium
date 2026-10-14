@@ -24,6 +24,7 @@ public class Audio{
     private String tipoConteudo;
     private Long tamanho;
     private Float duracao;
+    //essa porra aqui vai pro banco criado agora
     private LocalDateTime dataEnvio = LocalDateTime.now();
 
     @Column(columnDefinition = "TEXT")
