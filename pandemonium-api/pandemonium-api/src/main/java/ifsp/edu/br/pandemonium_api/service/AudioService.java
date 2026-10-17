@@ -48,7 +48,7 @@ public class AudioService{
 
     Usuario usuario = null;
             if(usuarioId != null){
-                usuario = usuarioRepository.findById(usuarioId).orElse(null);
+               usuario = usuarioRepository.findById(usuarioId.intValue()).orElse(null);
             }
 
     Audio audio = new Audio();
@@ -63,4 +63,71 @@ public class AudioService{
     processarAudio(caminhoDestino.toFile(), salvo.getId());
     return salvo;
     }
+
+   public List<Audio> listarAudio(){
+        return audioRepository.findAll();
+   }
+
+   public Resource carregarAudio(String nomeArquivoSalvo)
+           throws IOException{
+        Path caminhoArquivo = pastaUploads.resolve(nomeArquivoSalvo).normalize();
+        Resource recurso = new UrlResource(caminhoArquivo.toUri());
+
+            if(recurso.exists() && recurso.isReadable()){
+                return recurso;
+            } else{
+                throw new FileNotFoundException("Deu bosta, arquivo nao encontrado: " + nomeArquivoSalvo);
+            }
+   }
+   public void deletaAudio(Long id) throws IOException {
+       Audio audio = audioRepository.findById(id)
+               .orElseThrow(() -> new FileNotFoundException("ID do som: " + id + "que nao foi encontrado"));
+
+       Path caminhoArquivo = pastaUploads.resolve(audio.getNomeArquivoSalvo()).normalize();
+       Files.deleteIfExists(caminhoArquivo);
+       audioRepository.deleteById(id);
+   }
+
+@Async
+public CompletableFuture<Void> processarAudio(File arquivoAqudio, Long audioId) {
+    try {
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(arquivoAqudio);
+        AudioFormat format = audioInputStream.getFormat();
+        Long totalFrames = audioInputStream.getFrameLength();
+
+        float segundos = totalFrames / format.getSampleRate();
+        byte[] bytes = audioInputStream.readAllBytes();
+        List<Integer> waveform = extrairPicos(bytes, 100);
+
+        audioRepository.findById(audioId).ifPresent(audio -> {
+            audio.setDuracao(segundos);
+            audio.setWavefromJson(waveform.toString());
+            audioRepository.save(audio);
+        });
+        audioInputStream.close();
+    } catch (UnsupportedAudioFileException | IOException e) {
+        System.err.println("Erro ao processar o audio: " + e.getMessage());
+    }
+    return CompletableFuture.completedFuture(null);
+}
+// pra selecionar minutagem
+private List<Integer> extrairPicos(byte[] audioBytes, int pontosDesejados) {
+    List<Integer> picos = new ArrayList<>();
+    if (audioBytes == null || pontosDesejados == 0 || audioBytes.length == 0) {
+        return picos;
+    }
+    int tamanho = Math.max(1, audioBytes.length / pontosDesejados);
+    for (int i = 0; i < audioBytes.length && picos.size() < pontosDesejados; i += tamanho) {
+        int max = 0;
+        int fim = Math.min(i + tamanho, audioBytes.length);
+        for (int j = i; j < fim; j++) {
+            int valor = Math.abs(audioBytes[j]);
+            if (valor > max) {
+                max = valor;
+            }
+        }
+        picos.add(max);
+    }
+    return picos;
+}
 }
