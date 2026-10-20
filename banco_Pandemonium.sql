@@ -1,5 +1,6 @@
-CREATE DATABASE Pandemonium;
-USE pandemonium;
+DROP DATABASE IF EXISTS banco_pandemonium;
+CREATE DATABASE banco_pandemonium;
+USE banco_pandemonium;
 
 CREATE TABLE usuarios(
  id INT AUTO_INCREMENT PRIMARY KEY,
