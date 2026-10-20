@@ -1,16 +1,17 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const PANDEMONIUM_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
-    export const apiService = {
-        async listarChamados(){
-            const response = await fetch(`${API_BASE_URL}/chamados`);
-            if(!response.ok) throw new Error('Deu ruim ao buscar o chamado');
+export const apiService = {
+    async listarAudios(){
+        const response = await fetch(`${PANDEMONIUM_URL}/api/audios`);
+            if(!response.ok) trhow new Error("Deu bosta na busca,guenta ai...");
             return response.json();
-        },
-
-        async enviarAudio(formData){
-            const response = await fetch(`${API_BASE_URL}/upload` , {
-            method: 'POST', body: formData,});
-            if(!response.ok) throw new Error('Erro no upload');// pro tauri
-            return response.json();
-        }
-    };
+    },
+    async enviarAudio(formData){
+        const response = await fetch(`${PANDERMONIUM_API_URL}/api/audios/upload`, {
+            method: 'POST',
+            body: formData,
+        });
+        if(!response.ok) throw new Error('Erro no upload');
+        return response.json();
+    }
+};
