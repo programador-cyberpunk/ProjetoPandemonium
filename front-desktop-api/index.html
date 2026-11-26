@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PANDEMONIUM</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Pandemonium</h1>
+            <h2>Pandemonium vive!!!</h2>
+            <span id="status" class="status">Desconectado</span>
+        </header>
+
+        <section class="card">
+            <h2>Spring boot</h2>
+        <div class="row">
+            <input id="pandemonium-api" type="text" value="http://localhos:8080/api/model"> <!--acho que ta errado!-->
+            <button id="btnCarregar" itemtype="button">Buscar</button>
+        </div>
+        </section>
+
+        <section class="card">
+            <h2>Sons</h2>
+            <ul id="listarFaixas" class="lista"></ul>
+            <audio id="player" controls></audio>
+        </section>
+    </main>
+
+<script src="app.js"></script>
+</body>
+</html>
