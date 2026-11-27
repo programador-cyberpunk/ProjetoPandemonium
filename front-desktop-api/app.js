@@ -36,6 +36,21 @@ const statusEl = document.getElementById("status");
                  btnPlay.type = "button";
                  btnPlay.textContent = "Tocar";
                  btnPlay.disable = !audioUrl;
-                }
+                 btnPlay.addEventListener("click", ()  =>{
+                     player.src = audioUrl;
+                     player.play();
+                 });
+                 li.append(span, btnPlay);
+                 listaFaixas.appendChild(li);
             });
+  } catch (err){
+     console.error(err);
+     setStatus(`Erro: ${err.message}`, "Deu bosta");
+     listarFaixas.innerHTML =  `<li class="item">Falha ao consultar o Spring Boot.</li>`;
+            }
   }
+  btnCarregar.addEventListener("click",carregarAudios);
+
+    window.onJavaFxEvent = (msg) =>{
+        console.log("Essa porra veio do JAVAFX, vamo torce pra dar certo: ",msg);
+    };
