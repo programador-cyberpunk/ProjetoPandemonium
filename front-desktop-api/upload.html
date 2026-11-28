@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PANDEMONIUM - Upload</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main class="container">
+        <nav class="navbar"><strong>PANDEMONIUM</strong>
+          <div class="nav-links"><a href="index.html">Biblioteca</a>
+          <a href="upload.html" class="ativo">Enviar faixa</a>
+              <a href="chamados.html">Chamados</a>
+              <a href="configuraçoes.html">Configuraçoes</a>
+              <a href="chamados.html">Chamados</a>
+          </div>
+        <span id="statusUpload" class="status">GG</span>
+        </nav>
+
+        <section class="card">
+            <h2>Cadastrar novo som</h2>
+            <form id="formUpload" class="form-grid">
+                <div>
+                <label for="titulo">Titulo</label>
+                <input id="titulo" name="titulo" type="text" required placeholder="Ex.: Se deus é 10 satanas é 666"/>
+                </div>
+
+                <div>
+                    <label for="autor">Autor</label>
+                    <input id="autor" name="autor" type="text" required placeholder="Ex.:Reginaldo Rossi"/>
+                </div>
+
+                <div>
+                    <label for="arquivo">Arquivo de audio (MP3/ WAV)</label>
+                    <input id="arquivo" name="arquivo" type="file" accept="audio/*" required/>
+                </div>
+
+                <div class="row">
+                    <button type="submit">Enviar para plataforma</button>
+                    <button type="button" id="btnSeletorJfx" class="secundario">Pedir arquivo aos deuses do Java</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="api.js"></script>
+    <script src="upload.js"></script>
+</body>
+</html>
