@@ -3,7 +3,7 @@ const btnCarregar = document.getElementById("btnCarregar");
 const listaFaixas = document.getElementById("btnCarregar");
 const player = document.getElementById("player");
 const statusEl = document.getElementById("status");
-const API_DEFAULT = "http://localhost:8080/api" //nem lembro onome que dei pra essa merda
+
     function setStatus(texto, tipo){
         statusEl.textContent = texto;
         statusEl.className = `status ${tipo || ""}`;
